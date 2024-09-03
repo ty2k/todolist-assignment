@@ -1,3 +1,54 @@
+# Fixes to To Do List
+
+This documents my fixes to the To Do List application.
+
+## Changes
+
+### Missing `key` prop on `TodoItem`
+
+Upon running the `dev` script to start the application, the terminal displays a warning:
+
+```sh
+todolist-assignment on  main via ⬢ v20.17.0
+➜ npm run dev
+
+> react-todo-app@0.1.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use, trying 3001 instead.
+ ⚠ Port 3001 is in use, trying 3002 instead.
+  ▲ Next.js 14.2.6
+  - Local:        http://localhost:3002
+
+ ✓ Starting...
+ ✓ Ready in 1138ms
+ ○ Compiling / ...
+ ✓ Compiled / in 5.2s (275 modules)
+Warning: Each child in a list should have a unique "key" prop.
+
+Check the top-level render call using <ul>. See https://reactjs.org/link/warning-keys for more information.
+    at TodoItem (webpack-internal:///./src/components/TodoItem.tsx:15:25)
+    at TodoList (webpack-internal:///./src/components/TodoList.tsx:15:25)
+    at div
+    at Home (webpack-internal:///./src/pages/index.tsx:36:78)
+    at App (webpack-internal:///./src/pages/_app.tsx:11:16)
+    at StyleRegistry (/Users/tykrys/code/todolist-assignment/node_modules/styled-jsx/dist/index/index.js:449:36)
+    at eU (/Users/tykrys/code/todolist-assignment/node_modules/next/dist/compiled/next-server/pages.runtime.dev.js:8:20468)
+    at eH (/Users/tykrys/code/todolist-assignment/node_modules/next/dist/compiled/next-server/pages.runtime.dev.js:17:1765)
+    at eJ (/Users/tykrys/code/todolist-assignment/node_modules/next/dist/compiled/next-server/pages.runtime.dev.js:17:3068)
+    at div
+    at e9 (/Users/tykrys/code/todolist-assignment/node_modules/next/dist/compiled/next-server/pages.runtime.dev.js:26:761)
+ GET / 200 in 5327ms
+```
+
+This is caused by [the need to pass a unique `key` prop to JSX elements](https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key) being rendered from inside of a `.map()` function.
+
+As a fix, I added a `key` prop to the instances of the `<TodoItem>` rendered by the `<TodoList>`. The `key` prop is built using the Todo object's `id` property, which I am assuming to be unique.
+
+Original instructions below.
+
+---
+
 # To Do List
 
 In our increasingly complex and ever-evolving business landscape demand is constantly growing for simple, intuitive, and lightly space-themed task management software.
