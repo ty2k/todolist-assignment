@@ -45,6 +45,12 @@ This is caused by [the need to pass a unique `key` prop to JSX elements](https:/
 
 As a fix, I added a `key` prop to the instances of the `<TodoItem>` rendered by the `<TodoList>`. The `key` prop is built using the Todo object's `id` property, which I am assuming to be unique.
 
+### Missing `event.preventDefault()` call in AddTodoForm `handleSubmit()` function
+
+The `AddTodoForm` is built using a genuine `<form>` element with a `<button type="submit">` to add the new todo item. Because of this, the default behavior for submitting a form is a page reload. In a React Single Page Application (SPA) like ours, we need to carefully manage this behavior to make sure our application state is updated the way we expect. In this case, I added an `event.preventDefault()` to allow the `handleSubmit()` function to work as expected. See React's [Preventing default behavior](https://react.dev/learn/responding-to-events#preventing-default-behavior) documentation.
+
+---
+
 Original instructions below.
 
 ---
