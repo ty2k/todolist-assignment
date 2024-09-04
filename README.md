@@ -49,6 +49,14 @@ As a fix, I added a `key` prop to the instances of the `<TodoItem>` rendered by 
 
 The `AddTodoForm` is built using a genuine `<form>` element with a `<button type="submit">` to add the new todo item. Because of this, the default behavior for submitting a form is a page reload. In a React Single Page Application (SPA) like ours, we need to carefully manage this behavior to make sure our application state is updated the way we expect. In this case, I added an `event.preventDefault()` to allow the `handleSubmit()` function to work as expected. See React's [Preventing default behavior](https://react.dev/learn/responding-to-events#preventing-default-behavior) documentation.
 
+### Mutating state in `AddTodo()` function
+
+The `AddTodo()` function in the `Home` component has a confusing name. In React code bases, [it is conventional](https://letsreact.org/capitalizing-reactjs-component-names/) to only use a leading capital letter in function names when the function is returning a React component. While this function can be made to work with a leading capital letter, it is preferable to keep its casing consistent, so I renamed it to `addTodo()`.
+
+More importantly for this function, it is initially written in a way mutates a stateful variable. Changing stateful variables in place in React causes the UI to become stale, since a stateful variable mutation doesn't cause a component re-render. See React's [Don't mutate state](https://letsreact.org/capitalizing-reactjs-component-names/) documentation for details. To fix this, I used JavaScript's [`structuredClone()` global function](https://developer.mozilla.org/en-US/docs/Web/API/structuredClone) to make a deep clone copy of the `todos` state variable before mutating my copy and calling `setTodos()`.
+
+With this fixed, new todo items can be added to our `Home` component's state as expected.
+
 ---
 
 Original instructions below.

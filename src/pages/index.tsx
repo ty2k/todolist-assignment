@@ -23,7 +23,9 @@ import sampleData from "@/sampleData.json";
 export default function Home() {
   const [todos, setTodos] = useState<Todo[]>(sampleData);
 
-  const AddTodo = (title: string, desc: string) => {
+  const addTodo = (title: string, desc: string) => {
+    const newTodos = structuredClone(todos);
+
     const newTodo: Todo = {
       id: todos.length + 1,
       title: title,
@@ -32,8 +34,8 @@ export default function Home() {
       isUrgent: false,
     };
 
-    todos.push(newTodo);
-    setTodos(todos);
+    newTodos.push(newTodo);
+    setTodos(newTodos);
   };
 
   const deleteTodo = (id: number) => {
@@ -86,7 +88,7 @@ export default function Home() {
 
       <div className="Home">
         <Banner />
-        <AddTodoForm addTodo={AddTodo}/>
+        <AddTodoForm addTodo={addTodo}/>
         {displayTodos(true)}
         {displayTodos(false)}
         {displayComplete()}
