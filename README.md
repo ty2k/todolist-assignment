@@ -71,6 +71,10 @@ The `toggleProperty()` function was directly mutating the state of the of the `t
 
 Additionally, I added `todos` to the `useCallback()` dependency array to make sure that the state of `todos` is correct when `toggleProperty()` is called.
 
+### Fix CSS class `.todo-item` logic in TodoItem
+
+The way the nested ternary statements in `<li className={}>` were written, it meant that the complete items (with `.todo-item-complete`) were having more vertical margin applied to their `<h3>` tags than incomplete items. This makes no sense, since we would expect completed items to be less visually "important" than incomplete items. I updated the class assignment logic and simplified the CSS by removing the now-duplicate rules for `.todo-item` and `.todo-item-urgent`.
+
 ---
 
 Original instructions below.

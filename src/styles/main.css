@@ -136,13 +136,11 @@ label {
     color: #e0e0e0;
 }
 
-.todo-item h3,
-.todo-item-urgent h3 {
+.todo-item h3 {
     margin: 0 0 0.5rem;
 }
 
-.todo-item p,
-.todo-item-urgent p {
+.todo-item p {
     margin: 0 0 0.75rem;
     color: #bbb
 }
