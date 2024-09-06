@@ -75,6 +75,18 @@ Additionally, I added `todos` to the `useCallback()` dependency array to make su
 
 The way the nested ternary statements in `<li className={}>` were written, it meant that the complete items (with `.todo-item-complete`) were having more vertical margin applied to their `<h3>` tags than incomplete items. This makes no sense, since we would expect completed items to be less visually "important" than incomplete items. I updated the class assignment logic and simplified the CSS by removing the now-duplicate rules for `.todo-item` and `.todo-item-urgent`.
 
+### Remove background image swap logic in `useEffect()`
+
+The banner image is displayed at a maximum width of 800px, but most of the non-HD photos coming back from the [Nasa APOD API](https://github.com/nasa/apod-api) seem to be a minimum of 960px wide and may not always contain an `hdurl`:
+
+> `hdurl` The URL for any high-resolution image for that day. Returned regardless of 'hd' param setting but will be omitted in the response IF it does not exist originally at APOD.
+
+Given this, I have removed the buggy logic for trying to switch out background images based on viewport resizing. Instead, only the lower resolution image is used. This saves our users a 1.8 MB download for today's photo of the day. Since these photos are decorative background images, no important information is being lost by displaying a lower resolution image to the subset of users with Retina screens who may have benefitted from a high definition image being scaled down for display.
+
+I've added a `try/catch` block to catch and log errors for the case when the API call fails.
+
+I've also removed the block that returned early with `<p>Banner Loading...</p>` if `imgUrl` is false. We care more about displaying the name of the app in a semantically correct tag than we do about telling our users a decorative image is loading.
+
 ---
 
 Original instructions below.
