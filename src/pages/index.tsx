@@ -45,12 +45,16 @@ export default function Home() {
   const toggleProperty = useCallback((id: number, property: keyof Pick<Todo, 'isCompleted' | 'isUrgent'>) => {
     const updatedTodos = todos.map((todo) => {
       if (todo.id === id) {
-        todo[property] = !todo[property] as boolean;
+        const newTodo = structuredClone(todo);
+
+        newTodo[property] = !newTodo[property] as boolean;
+
+        return newTodo;
       }
       return todo;
     });
     setTodos(updatedTodos);
-  }, [setTodos]);
+  }, [setTodos, todos]);
 
   const displayTodoList = (todoList:Todo[]) => {
     return (

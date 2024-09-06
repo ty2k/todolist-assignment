@@ -65,6 +65,12 @@ This function was incorrectly double-displaying the "Implement user authenticati
 
 This function was incorrectly deleting everything but the intended todo item. I fixed it by reversing the conditional in the `filter()` function.
 
+### Fix `toggleProperty()` state mutation and dependency array
+
+The `toggleProperty()` function was directly mutating the state of the of the `todo` item that met the `if` condition. I've fixed this by using `structuredClone()` to make a copy of the `todo` and then working on that copy before returning it.
+
+Additionally, I added `todos` to the `useCallback()` dependency array to make sure that the state of `todos` is correct when `toggleProperty()` is called.
+
 ---
 
 Original instructions below.
