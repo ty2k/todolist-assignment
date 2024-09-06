@@ -57,6 +57,10 @@ More importantly for this function, it is initially written in a way mutates a s
 
 With this fixed, new todo items can be added to our `Home` component's state as expected.
 
+### Fix conditional logic in `displayTodos()`
+
+This function was incorrectly double-displaying the "Implement user authentication" and never displaying the non-urgent, non-complete todo items. I fixed the logic by removing the check for `displayUrgent` within the `if/else` block, since we are already checking the state of `displayUrgent` to enter the block. I also set the `else` block to use `!x.isUrgent`, since we are in a condition where `displayUrgent` is false.
+
 ---
 
 Original instructions below.
